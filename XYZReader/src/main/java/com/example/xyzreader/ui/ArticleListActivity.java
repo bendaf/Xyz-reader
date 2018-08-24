@@ -18,12 +18,14 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -178,10 +180,7 @@ public class ArticleListActivity extends AppCompatActivity implements
                                 + "<br/>" + " by "
                                 + mCursor.getString(ArticleLoader.Query.AUTHOR)));
             }
-            holder.thumbnailView.setImageUrl(
-                    mCursor.getString(ArticleLoader.Query.THUMB_URL),
-                    ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
-            holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
+            Picasso.get().load(mCursor.getString(ArticleLoader.Query.THUMB_URL)).into(holder.thumbnailView);
         }
 
         @Override
@@ -191,7 +190,7 @@ public class ArticleListActivity extends AppCompatActivity implements
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        DynamicHeightNetworkImageView thumbnailView;
+        ImageView thumbnailView;
         TextView titleView;
         TextView subtitleView;
 
